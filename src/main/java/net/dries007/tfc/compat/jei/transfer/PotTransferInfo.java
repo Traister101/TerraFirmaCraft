@@ -6,18 +6,12 @@
 
 package net.dries007.tfc.compat.jei.transfer;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
-import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
@@ -36,33 +30,14 @@ import static net.dries007.tfc.common.blockentities.GrillBlockEntity.*;
  * Custom transfer info for the pot, this is to override {@link #canHandle(PotContainer, PotRecipe)} to respect
  * {@link PotBlockEntity#hasRecipeStarted()} as the slots get locked
  */
-public class PotTransferInfo implements IRecipeTransferInfo<PotContainer, PotRecipe>
+public class PotTransferInfo extends BaseTransferInfo<PotContainer, PotRecipe>
 {
-    private final RecipeType<PotRecipe> recipeType;
     private final IRecipeTransferHandlerHelper transferHelper;
 
     public PotTransferInfo(IRecipeTransferHandlerHelper transferHelper, RecipeType<PotRecipe> recipeType)
     {
+        super(PotContainer.class, TFCContainerTypes.POT.get(), recipeType, SLOT_EXTRA_INPUT_START, 5, 9, Inventory.INVENTORY_SIZE);
         this.transferHelper = transferHelper;
-        this.recipeType = recipeType;
-    }
-
-    @Override
-    public Class<? extends PotContainer> getContainerClass()
-    {
-        return PotContainer.class;
-    }
-
-    @Override
-    public Optional<MenuType<PotContainer>> getMenuType()
-    {
-        return Optional.of(TFCContainerTypes.POT.get());
-    }
-
-    @Override
-    public RecipeType<PotRecipe> getRecipeType()
-    {
-        return recipeType;
     }
 
     @Override
@@ -128,17 +103,5 @@ public class PotTransferInfo implements IRecipeTransferInfo<PotContainer, PotRec
         }
 
         return transferHelper.createUserErrorWithTooltip(Component.translatable("tfc.jei.transfer.error.pot_started"));
-    }
-
-    @Override
-    public List<Slot> getRecipeSlots(PotContainer container, PotRecipe recipe)
-    {
-        return IntStream.range(SLOT_EXTRA_INPUT_START, SLOT_EXTRA_INPUT_END + 1).mapToObj(container::getSlot).toList();
-    }
-
-    @Override
-    public List<Slot> getInventorySlots(PotContainer container, PotRecipe recipe)
-    {
-        return IntStream.range(9, 9 + Inventory.INVENTORY_SIZE).mapToObj(container::getSlot).collect(Collectors.toList());
     }
 }
