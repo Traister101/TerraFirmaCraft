@@ -323,7 +323,7 @@ public final class JEIIntegration implements IModPlugin
         registry.addRecipeTransferHandler(new FluidIgnoringRecipeTransferHandler<>(transferHelper, transferHelper.createUnregisteredRecipeTransferHandler(new PotTransferInfo(transferHelper, JAM_POT))), JAM_POT);
 
         // Only sealed barrel recipes, instant barrel recipes are purposefully excluded
-        registry.addRecipeTransferHandler(new FluidIgnoringRecipeTransferHandler<>(transferHelper, transferHelper.createUnregisteredRecipeTransferHandler(new BarrelTransferInfo<>(SEALED_BARREL))), SEALED_BARREL);
+        registry.addRecipeTransferHandler(new FluidIgnoringRecipeTransferHandler<>(transferHelper, transferHelper.createUnregisteredRecipeTransferHandler(new BarrelTransferInfo<>(transferHelper,SEALED_BARREL))), SEALED_BARREL);
     }
 
     @Override

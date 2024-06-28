@@ -1814,6 +1814,7 @@ DEFAULT_LANG = {
     'tfc.jei.transfer.error.pot_not_enough_fluid': 'Not enough fluid, missing %smb of %s',
     'tfc.jei.transfer.error.anvil_welding_tier_too_low': 'Anvil tier too low to weld that',
     'tfc.jei.transfer.error.anvil_forging_tier_too_low': 'Anvil tier is too low to work',
+    'tfc.jei.transfer.error.barrel_sealed': 'Barrel is currently sealed',
 
     'tfc.field_guide.book_name': 'TerraFirmaCraft',
     'tfc.field_guide.book_landing_text': 'Welcome traveller! This book will be the source of all you need to know as you explore the world of TerraFirmaCraft (TFC).'
